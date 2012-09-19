@@ -1,4 +1,10 @@
 This is Android device profile stub for Telechips 8925 based CX01 HDMI mini-PC.
+!!!!
+!!!! Board configured for 8Gb device - BOARD_KERNEL_PAGESIZE := 8192
+!!!! So command line to build image looks like mkbootimg --cmdline 'console=null' --kernel kernel --ramdisk ramdisk.cpio.gz --pagesize 8192 --base 0x80000000 -o recovery.img
+!!!! Don't know how this config will behave with 4Gb devices 
+!!!! http://www.cnx-software.com/2012/08/22/how-to-create-a-custom-android-firmware-for-cx-01 advice pagesize 4096 for devices with 4Gb 
+!!!!
 
 At current stage it allows to build CWM recovery from CM9 source tree.
 
