@@ -1,0 +1,27 @@
+This is Android device profile stub for Telechips 8925 based CX01 HDMI mini-PC.
+
+At current stage it allows to build CWM recovery from CM9 source tree.
+
+The guide for porting CWM to new devices is published at http://www.koushikdutta.com/2010/10/porting-clockwork-recovery-to-new.html
+
+Disclaimer:
+    All operations performed with devices are responsibility of respective owners of their devices.
+    I'm providing all things as is. The testing was performed only on my CX01(8G, 7/27 ROM) device and can't be considered as comprehencive.
+
+Instruction to build CWM recovery from this git:
+    1. Go to CM9 working directory root e.g. /home/alex/CM9
+    2. Load device files to device/telechips/tcc8920st/ directory.
+    3. Load build environment:
+	. build/envsetup.sh
+    4. Load device profile:
+	lunch full_tcc8920st-eng
+    5. Build recovery:
+	. build/tools/device/makerecoveries.sh full_tcc8920st-eng
+    6. Recovery partition image is out/target/product/tcc8920st/recovery.img
+
+CWM recovery image can be loaded to device connected to PC and accessible via adb commands.
+The helper scripts for loading recovery from Windows PC are located in recovery.wininstall directory in device profile.
+    backup_recovery.cmd - backups recovery partition image from device to current directory
+    install_recovery.cmd <recovery.img> - load recovery partition image to device
+    boot_recovery.cmd - reboot device to recovery
+USB leyboard works in recovery - use cursor keys + enter.

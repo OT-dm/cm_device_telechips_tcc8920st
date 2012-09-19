@@ -1,0 +1,60 @@
+on boot
+    #setprop tcc.wifi.vendor atheros
+    setprop tcc.wifi.vendor realtek
+    #setprop tcc.wifi.vendor broadcom    
+    
+# for Atheros Wi-Fi ----------------------------------------------------------------------------------------
+#service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+#    disabled
+#    oneshot
+
+# Special for the ugly AR6003 code
+#service abtfilt1 /system/bin/abtfilt -a -d -v -z -s
+#    disabled
+#    oneshot
+
+#service wlan_tool /system/bin/wlan_tool
+#    user root
+#    group root
+#    disabled
+#    oneshot
+# ----------------------------------------------------------------------------------------------------------
+
+# for Realtek wifi -----------------------------------------------------------------------------------------
+service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+	socket wpa_wlan0 dgram 660 wifi wifi
+	group wifi inet
+	disabled
+	oneshot
+
+service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
+    class late_start
+    user root
+    group root
+    oneshot
+    disabled	
+# ----------------------------------------------------------------------------------------------------------    
+
+# for Broadcom Wi-Fi ---------------------------------------------------------------------------------------
+#service wpa_supplicant /system/bin/wpa_supplicant \
+#    -Dnl80211 -iwlan0 -puse_p2p_group_interface=1 -e/data/misc/wifi/entropy.bin
+#    class main
+#    socket wpa_wlan0 dgram 660 wifi wifi
+#    disabled
+#    oneshot
+#    setprop wifi.vendor broadcom
+# ----------------------------------------------------------------------------------------------------------
+
+#service hostapd /system/bin/hostapd_wps /data/misc/wifi/hostapd.conf
+#    hostapd_wlap0 dgram 660 root wifi
+#    user root
+#    group wifi
+#    oneshot
+#    disabled
+#
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+    disabled
+    oneshot
+
+
